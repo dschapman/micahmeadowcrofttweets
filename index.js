@@ -8,10 +8,48 @@ var bot = new Twit({
     timeout_ms: 60*1000
 });
 
-bot.post('statuses/update', {status: 'hello world!'}, function(err, data, response){
-    if (err){
-        console.log(err);
-    } else {
-        console.log(data.text + ' was tweeted.')
-    }
-});
+
+
+// FIND OUT WHO MICAH FOLLOWS
+//
+// bot.get('friends/list', {screen_name: 'micaheadowcroft'}, function(err, data, response){
+//     if (err){
+//         console.log(err);
+//         } else {
+//         console.log(data)
+//         }
+// });
+
+
+// FOLLOW MICAH
+//
+// bot.post('friendships/create', {screen_name: 'micaheadowcroft'}, function(err, data, response){
+//     if (err){
+//         console.log(err);
+//         } else {
+//         console.log(data)
+//         }
+// });
+
+// GET LIST OF MICAH'S FOLLOWERS
+//
+// bot.get('followers/list', {screen_name: 'micaheadowcroft'}, function(err, data, response){
+//     if (err){
+//         console.log(err);
+//     }else{
+//         data.users.forEach(function(user){
+//             console.log(user.screen_name)
+//         })
+//     }
+// });
+
+
+// POST A TWEET
+//
+// bot.post('statuses/update', {status: 'hello world!'}, function(err, data, response){
+//     if (err){
+//         console.log(err);
+//     } else {
+//         console.log(data.text + ' was tweeted.')
+//     }
+// });
