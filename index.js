@@ -15,11 +15,31 @@ var bot = new Twit({
 // DuneQuoteBot
 // TolkienDaily
 
+bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, response){
+    if (err){
+        console.log(err);
+    } else {
+        bot.get('statuses/user_timeline', {id: data.id_str}, function(err, data, response){
+        if (err){
+            console.log(err);
+         }else{
+        data.forEach(function(tweet)
+        {
+            console.log("Date: ", tweet.created_at)
+            console.log("ID: ", tweet.id)
+            console.log("Text: ",tweet.text);
+            console.log("Likes: ",tweet.favorite_count);
+            console.log("Retweets: ",tweet.retweet_count + '\n');
+        }
+        )
+        }
+});
+    }
+})
 
 // var TWEET = '1243923857876103174'
 // postReply(TWEET, 'TESTING REPLY FUNCTION AGAIN', 'tweets_micah');
 
-searchTweets("micaheadowcroft", 15);
 
 
 // SEARCH FOR TWEETS ABOUT MICAH
