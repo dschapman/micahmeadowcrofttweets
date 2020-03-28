@@ -19,8 +19,25 @@ var bot = new Twit({
 // var TWEET = '1243923857876103174'
 // postReply(TWEET, 'TESTING REPLY FUNCTION AGAIN', 'tweets_micah');
 
-tweet("STILL HAVE MUCH TO LEARN...SIGNING OFF FOR NOW");
+searchTweets("micaheadowcroft", 15);
 
+
+// SEARCH FOR TWEETS ABOUT MICAH
+function searchTweets(searchParam, limit){
+    bot.get('search/tweets', {q: searchParam, count: limit}, function(err, data, response){
+        if (err){
+            console.log(err);
+        } else {
+            data.statuses.forEach(function(s){
+                console.log(s.text);
+                console.log(s.user.screen_name);
+                console.log('\n')
+            })
+
+        }
+    })
+
+}
 
 // RETURNS THE SCREEN NAME OF THE PERSON WHO TWEETED SOMETHING
 //
