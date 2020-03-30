@@ -1,6 +1,8 @@
 
 var Twit = require('twit');
 
+
+
 var bot = new Twit({
     consumer_key: process.env.MICAHBOT_CONSUMER_KEY,
     consumer_secret: process.env.MICAHBOT_CONSUMER_SECRET,
@@ -13,8 +15,11 @@ var bot = new Twit({
 // AugustineQuots 
 // CSLewis
 // DuneQuoteBot
-// TolkienDaily
 
+
+
+
+//THIS FUNCTION GETS MICAH'S TIMELINE
 bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, response){
     if (err){
         console.log(err);
@@ -23,13 +28,23 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
         if (err){
             console.log(err);
          }else{
+        let allTweets = []
         data.forEach(function(tweet)
         {
-            console.log("Date: ", tweet.created_at)
-            console.log("ID: ", tweet.id)
-            console.log("Text: ",tweet.text);
-            console.log("Likes: ",tweet.favorite_count);
-            console.log("Retweets: ",tweet.retweet_count + '\n');
+            today = Date()
+            if(Date(timestamp).getUTCDate() == Date().getUTCDate() )
+            {
+
+            }else{
+                
+            }
+
+            //if (tweet.created)
+            // console.log("Date: ", tweet.created_at)
+            // console.log("ID: ", tweet.id)
+            // console.log("Text: ",tweet.text);
+            // console.log("Likes: ",tweet.favorite_count);
+            // console.log("Retweets: ",tweet.retweet_count + '\n');
         }
         )
         }
