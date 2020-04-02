@@ -33,7 +33,7 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
         {
             today = new Date();
             tweetDate = new Date(tweet.created_at);
-            if(tweetDate.getUTCDate() == (today.getUTCDate() - 1) )
+            if(tweetDate.getDate() == (today.getDate()) )
             {
                 if(tweet.text.startsWith('RT')){
                     todaysTweets.push({id: tweet.id, date: tweet.created_at, text: tweet.text, likes: tweet.favorite_count, retweets: tweet.retweet_count, type: "Retweet"});
@@ -59,9 +59,19 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
         )
         let totalTweets = 0;
         let totalReplies = 0;
+        let maxLikes;
+        let maxRetweets;
         todaysTweets.forEach(function(tweet) {
+            maxLikes = tweet.likes;
+            maxRetweets = tweet.retweets;
             if(tweet.type != "Retweet"){
                 totalTweets = totalTweets + 1;
+                if(tweet.likes > maxLikes) {
+                    maxLikes = tweet.likes;
+                };
+                if(tweet.retweets > maxRetweets) {
+                    maxRetweets = tweet.retweets;
+                }
             }
             if(tweet.type == "Reply") {
                 totalReplies = totalReplies + 1;
@@ -69,7 +79,7 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
             
         })
         console.log(todaysTweets)
-        console.log("Today @Micaheadowcroft tweeted " + totalTweets + " times and replied " + totalReplies + " times.")
+        tweet("Today Micah tweeted " + totalTweets + " times and replied " + totalReplies + " times. \nHis most liked tweet received " + maxLikes + " likes.\nGreat job today Micah!")
         }
 });
     }
