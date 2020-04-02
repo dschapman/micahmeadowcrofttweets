@@ -28,13 +28,21 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
         if (err){
             console.log(err);
          }else{
-        let allTweets = []
+        let todaysTweets = []
         data.forEach(function(tweet)
         {
-            today = Date()
-            if(Date(timestamp).getUTCDate() == Date().getUTCDate() )
+            today = new Date();
+            tweetDate = new Date(tweet.created_at);
+            if(tweetDate.getUTCDate() == (today.getUTCDate() - 1) )
             {
-
+                if(tweet.text.startsWith('RT')){
+                    todaysTweets.push({id: tweet.id, date: tweet.created_at, text: tweet.text, likes: tweet.favorite_count, retweets: tweet.retweet_count, type: "Retweet"});
+                }else if(tweet.text.startsWith('@'))
+                {
+                    todaysTweets.push({id: tweet.id, date: tweet.created_at, text: tweet.text, likes: tweet.favorite_count, retweets: tweet.retweet_count, type: "Reply"});
+                }else{
+                todaysTweets.push({id: tweet.id, date: tweet.created_at, text: tweet.text, likes: tweet.favorite_count, retweets: tweet.retweet_count, type: "Regular"});
+                }
             }else{
                 
             }
@@ -46,7 +54,22 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
             // console.log("Likes: ",tweet.favorite_count);
             // console.log("Retweets: ",tweet.retweet_count + '\n');
         }
+
+        
         )
+        let totalTweets = 0;
+        let totalReplies = 0;
+        todaysTweets.forEach(function(tweet) {
+            if(tweet.type != "Retweet"){
+                totalTweets = totalTweets + 1;
+            }
+            if(tweet.type == "Reply") {
+                totalReplies = totalReplies + 1;
+            }
+            
+        })
+        console.log(todaysTweets)
+        console.log("Today @Micaheadowcroft tweeted " + totalTweets + " times and replied " + totalReplies + " times.")
         }
 });
     }
