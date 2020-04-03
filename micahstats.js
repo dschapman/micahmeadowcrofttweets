@@ -76,3 +76,16 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
 });
     }
 })
+
+// POST A TWEET
+//
+function tweet(text)
+{
+    bot.post('statuses/update', {status: text}, function(err, data, response){
+        if (err){
+            console.log(err);
+        } else {
+            console.log(data.text + ' was tweeted.')
+        }
+    });
+}
