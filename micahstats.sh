@@ -1,3 +1,3 @@
 # make sure we're working with the latest version
-git pull
-node ./micahstats.js
+/usr/bin/git pull
+/usr/local/node /home/pi/micahmeadowcrofttweets/micahstats.js

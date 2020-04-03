@@ -69,8 +69,9 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
             }
             
         })
+        today = new Date()
         console.log(todaysTweets)
-        console.log("Today Micah tweeted " + totalTweets + " times and replied " + totalReplies + " times. \nHis most liked tweet received " + maxLikes + " likes.\nGreat job today Micah!")
+        tweet("Today (" + (today.getMonth()+1) + "/" + today.getDate() + ") Micah tweeted " + totalTweets + " times and replied " + totalReplies + " times. \nHis most liked tweet received " + maxLikes + " likes.\nGreat job today Micah!")
         }
 });
     }
