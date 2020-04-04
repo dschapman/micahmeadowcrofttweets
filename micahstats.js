@@ -50,11 +50,9 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
         )
         let totalTweets = 0;
         let totalReplies = 0;
-        let maxLikes;
-        let maxRetweets;
+        let maxLikes = 0;
+        let maxRetweets = 0;
         todaysTweets.forEach(function(tweet) {
-            maxLikes = tweet.likes;
-            maxRetweets = tweet.retweets;
             if(tweet.type != "Retweet"){
                 totalTweets = totalTweets + 1;
                 if(tweet.likes > maxLikes) {
