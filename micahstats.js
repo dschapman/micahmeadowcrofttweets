@@ -76,7 +76,7 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
 })
 
 function GetCongratulations(){
-    let generalPraise = ["Great job today", "You killed it", "Tweeting like a boss", "I'm so glad you're on Twitter", "Keep the tweets coming", "Tweeting like Augustine eats pears"];
+    let generalPraise = ["Great job today", "You killed it", "Tweeting like a boss", "I'm so glad you're on Twitter", "Keep the tweets coming", "You're tweeting like Augustine eats pears"];
     let lowRetweetsLowLikes = ["You had some real undiscovered gems today", "Not many people liked your tweets today, but I sure did"]
     let highRetweets = ["You went viral today", "Everyone got to see your tweets today"]
     let noTweets = ["Everyone needs a break. Please tweet more tomorrow", "Waiting for you to tweet more"]
