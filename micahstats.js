@@ -69,11 +69,23 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
         })
         today = new Date()
         console.log(todaysTweets)
-        tweet("Today (" + (today.getMonth()+1) + "/" + today.getDate() + ") Micah tweeted " + totalTweets + " times and replied " + totalReplies + " times. \nHis most liked tweet received " + maxLikes + " likes.\nGreat job today Micah! \n #micahstats")
+        tweet("Today (" + (today.getMonth()+1) + "/" + today.getDate() + ") Micah tweeted " + totalTweets + " times and replied " + totalReplies + " times. His most liked tweet received " + maxLikes + " likes and his most retweeted tweet received " + maxRetweets + " retweets.\n\n" + GetCongratulations() + " Micah! #micahstats")
         }
 });
     }
 })
+
+function GetCongratulations(){
+    let generalPraise = ["Great job today", "You killed it", "Tweeting like a boss", "I'm so glad you're on Twitter", "Keep the tweets coming", "Tweeting like Augustine eats pears"];
+    let lowRetweetsLowLikes = ["You had some real undiscovered gems today", "Not many people liked your tweets today, but I sure did"]
+    let highRetweets = ["You went viral today", "Everyone got to see your tweets today"]
+    let noTweets = ["Everyone needs a break. Please tweet more tomorrow", "Waiting for you to tweet more"]
+    let randomResponse = generalPraise[Math.floor(Math.random() * generalPraise.length)];
+    return randomResponse
+}
+// CONGRATULATE MICAH
+
+
 
 // POST A TWEET
 //
