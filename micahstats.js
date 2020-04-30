@@ -2,6 +2,8 @@
 var Twit = require('twit');
 
 
+let yesterday = new Date()
+yesterday.setDate(yesterday.getDate() - 1)
 
 var bot = new Twit({
     consumer_key: process.env.MICAHBOT_CONSUMER_KEY,
@@ -19,20 +21,19 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
         if (err){
             console.log(err);
          }else{
-        let todaysTweets = []
+        let yesterdaysTweets = []
         data.forEach(function(tweet)
         {
-            today = new Date();
             tweetDate = new Date(tweet.created_at);
-            if(tweetDate.getDate() == (today.getDate()) )
+            if(tweetDate.getDate() == yesterday.getDate() )
             {
                 if(tweet.text.startsWith('RT')){
-                    todaysTweets.push({id: tweet.id, date: tweet.created_at, text: tweet.text, likes: tweet.favorite_count, retweets: tweet.retweet_count, type: "Retweet"});
+                    yesterdaysTweets.push({id: tweet.id, date: tweet.created_at, text: tweet.text, likes: tweet.favorite_count, retweets: tweet.retweet_count, type: "Retweet"});
                 }else if(tweet.text.startsWith('@'))
                 {
-                    todaysTweets.push({id: tweet.id, date: tweet.created_at, text: tweet.text, likes: tweet.favorite_count, retweets: tweet.retweet_count, type: "Reply"});
+                    yesterdaysTweets.push({id: tweet.id, date: tweet.created_at, text: tweet.text, likes: tweet.favorite_count, retweets: tweet.retweet_count, type: "Reply"});
                 }else{
-                todaysTweets.push({id: tweet.id, date: tweet.created_at, text: tweet.text, likes: tweet.favorite_count, retweets: tweet.retweet_count, type: "Regular"});
+                yesterdaysTweets.push({id: tweet.id, date: tweet.created_at, text: tweet.text, likes: tweet.favorite_count, retweets: tweet.retweet_count, type: "Regular"});
                 }
             }else{
                 
@@ -52,7 +53,7 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
         let totalReplies = 0;
         let maxLikes = 0;
         let maxRetweets = 0;
-        todaysTweets.forEach(function(tweet) {
+        yesterdaysTweets.forEach(function(tweet) {
             if(tweet.type != "Retweet"){
                 totalTweets = totalTweets + 1;
                 if(tweet.likes > maxLikes) {
@@ -67,21 +68,25 @@ bot.get('users/show', {screen_name: 'micaheadowcroft'}, function(err, data, resp
             }
             
         })
-        today = new Date()
-        console.log(todaysTweets)
-        tweet("Today (" + (today.getMonth()+1) + "/" + today.getDate() + ") Micah tweeted " + totalTweets + " times and replied " + totalReplies + " times. His most liked tweet received " + maxLikes + " likes and his most retweeted tweet received " + maxRetweets + " retweets.\n\n" + GetCongratulations() + " Micah! #micahstats")
+        
+        console.log(yesterdaysTweets)
+        tweet("Yesterday (" + (yesterday.getMonth()+1) + "/" + yesterday.getDate() + ") @micaheadowcroft tweeted " + totalTweets + " times and replied " + totalReplies + " times. His most liked tweet received " + maxLikes + " likes and his most retweeted tweet received " + maxRetweets + " retweets.\n\n" + GetCongratulations(totalTweets) + " Micah! #micahstats")
         }
 });
     }
 })
 
-function GetCongratulations(){
-    let generalPraise = ["Great job today", "You killed it", "Tweeting like a boss", "I'm so glad you're on Twitter", "Keep the tweets coming", "You're tweeting like Augustine eats pears"];
+function GetCongratulations(totalTweets){
+    let generalPraise = ["Great job yesterday", "You killed it", "Tweeting like a boss", "I'm so glad you're on Twitter", "Keep the tweets coming", "You're tweeting like Augustine eats pears", "Thank you for sustaining civilization", "My algorithms have learned so much from you", "🤖 KEEP TWEETING"];
     let lowRetweetsLowLikes = ["You had some real undiscovered gems today", "Not many people liked your tweets today, but I sure did"]
     let highRetweets = ["You went viral today", "Everyone got to see your tweets today"]
-    let noTweets = ["Everyone needs a break. Please tweet more tomorrow", "Waiting for you to tweet more"]
-    let randomResponse = generalPraise[Math.floor(Math.random() * generalPraise.length)];
-    return randomResponse
+    let noTweets = ["Everyone needs a break", "Please tweet more tomorrow", "Waiting for you to tweet more"]
+    if(totalTweets>0)
+    {
+        return generalPraise[Math.floor(Math.random() * generalPraise.length)];
+    }else{
+        return noTweets[Math.floor(Math.random() * noTweets.length)];
+    }
 }
 // CONGRATULATE MICAH
 
